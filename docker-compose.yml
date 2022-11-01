@@ -1,0 +1,38 @@
+version: '3.0'
+
+services:
+  mysqldb:
+    image: mysql:5.7
+    restart: unless-stopped
+    env_file: ./.env
+    environment:
+      - MYSQL_ROOT_PASSWORD=$MYSQLDB_PASSWORD
+      - MYSQL_DATABASE=$MYSQLDB_DATABASE
+    ports:
+      - $MYSQLDB_PORT:$MYSQLDB_LOCAL_PORT
+    volumes:
+      - db:/var/lib/mysql
+
+  magicpark-api:
+    build:
+      context: ./api
+      dockerfile: ./Dockerfile
+    restart: on-failure
+    env_file: ./.env
+    container_name: magicpark-api
+    restart: unless-stopped
+    environment:
+      - MYSQL_HOST=$MYSQLDB_HOST
+      - MYSQL_USER=$MYSQLDB_USER
+      - MYSQL_PASSWORD=$MYSQLDB_PASSWORD
+      - MYSQL_DATABASE=$MYSQLDB_DATABASE
+      - MYSQL_PORT=$MYSQLDB_PORT
+      - SERVER_PORT=$API_LOCAL_PORT
+    ports:
+      - $API_PORT:$API_LOCAL_PORT
+    volumes:
+      - .m2:/root/.m2
+    stdin_open: true
+    tty: true
+volumes:
+  db:
