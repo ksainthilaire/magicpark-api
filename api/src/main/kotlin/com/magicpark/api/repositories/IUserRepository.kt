@@ -12,17 +12,12 @@ interface IUserRepository : JpaRepository<User, Long> {
 
     fun findByMail(mail: String) : Optional<User>
 
+    @Modifying
+    @Query("Update User user SET user.fullName=:fullname WHERE user.id=:id")
+    fun updateFullName(@Param("id") id: Long?, @Param("fullname") title: String?)
 
     @Modifying
-    @Query("Update User user SET user.firstName=:firstname WHERE user.id=:id")
-    fun updateFirstname(@Param("id") id: Long?, @Param("firstname") title: String?)
-
-    @Modifying
-    @Query("Update User user SET user.firstName=:lastname WHERE user.id=:id")
-    fun updateLastname(@Param("id") id: Long?, @Param("lastname") title: String?)
-
-    @Modifying
-    @Query("Update User user SET user.password=:password WHERE user.id=:id")
-    fun updatePassword(@Param("id") id: Long?, @Param("password") t: String?)
+    @Query("Update User user SET user.token=:token WHERE user.id=:id")
+    fun updateToken(@Param("id") id: Long?, @Param("token") t: String?)
 
 }

@@ -1,21 +1,22 @@
 package com.magicpark.api.filters
 
-import com.magicpark.api.model.database.User
-import com.magicpark.api.utils.JwtUtil
-import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
-import org.springframework.security.core.context.SecurityContextHolder
-import org.springframework.security.web.authentication.WebAuthenticationDetailsSource
-import org.springframework.stereotype.Component
-import org.springframework.util.ObjectUtils
-import org.springframework.web.filter.OncePerRequestFilter
-import javax.servlet.FilterChain
+
+import org.springframework.security.core.Authentication
+import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter
+import org.springframework.security.web.authentication.preauth.AbstractPreAuthenticatedProcessingFilter
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 
 
-@Component
-class JwtTokenFilter : OncePerRequestFilter() {
+/*
+class JwtTokenFilter(val headerName: String) : AbstractAuthenticationProcessingFilter() {
+
+    override fun attemptAuthentication(request: HttpServletRequest?, response: HttpServletResponse?): Authentication {
+        TODO("Not yet implemented")
+    }
+}
+
+    /*
     @Autowired
     private lateinit var  jwtUtil: JwtUtil
 
@@ -29,7 +30,7 @@ class JwtTokenFilter : OncePerRequestFilter() {
             return
         }
         val token = getAccessToken(request)
-        if (!jwtUtil.validateAccessToken(token)) {
+        if (!JwtUtilvalidateAccessToken(token)) {
             filterChain.doFilter(request, response)
             return
         }
@@ -48,18 +49,14 @@ class JwtTokenFilter : OncePerRequestFilter() {
     }
 
     private fun setAuthenticationContext(token: String, request: HttpServletRequest) {
-        val user = getUser(token)
-
-        val authentication = UsernamePasswordAuthenticationToken(user, null, null)
-        authentication.details = WebAuthenticationDetailsSource().buildDetails(request)
-        SecurityContextHolder.getContext().authentication = authentication
+        println("TAG:: le token est ${token}")
     }
 
     private fun getUser(token: String): User {
         val user = User()
-        val jwtSubject: List<String> = jwtUtil.getSubject(token).split(",")
+        val jwtSubject: List<String> = JwtUtilgetSubject(token).split(",")
         user.id = jwtSubject[0].toLong()
         user.mail = jwtSubject[1]
         return user
     }
-}
+}*/

@@ -1,18 +1,21 @@
 package com.magicpark.api.utils
 
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import com.magicpark.api.model.database.User
 import io.jsonwebtoken.Claims
 import io.jsonwebtoken.Jwts
 import io.jsonwebtoken.SignatureAlgorithm
 import org.springframework.beans.factory.annotation.Value
+import org.springframework.context.annotation.PropertySource
 import org.springframework.stereotype.Component
 import java.util.*
 
 
 @Component
-class JwtUtil {
-    @Value("\${app.jwt.secret}")
-    private val secretKey: String? = null
+@PropertySource("classpath:application.properties")
+object JwtUtil {
+    private var secretKey: String = "\\$2y\\$10\$SpkyXMmmAlj9HdcdB4rqwuUg5Pm3AkhtKeE1wNG1Jxq59Pvflm9PC"
 
     fun generateAccessToken(user: User): String {
         return Jwts.builder()
@@ -44,7 +47,8 @@ class JwtUtil {
             .body
     }
 
-    companion object {
-        private const val EXPIRE_DURATION = (24 * 60 * 60 * 1000).toLong()
-    }
+    private const val EXPIRE_DURATION = (24 * 60 * 60 * 1000).toLong()
 }
+
+internal inline fun <reified T> Gson.fromJson(json: String) =
+    fromJson<T>(json, object : TypeToken<T>() {}.type)

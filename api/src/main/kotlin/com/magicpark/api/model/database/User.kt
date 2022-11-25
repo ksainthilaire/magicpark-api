@@ -1,6 +1,10 @@
 package com.magicpark.api.model.database
 
+import com.fasterxml.jackson.annotation.JsonAlias
 import com.magicpark.api.enums.UserRank
+import org.springframework.security.core.GrantedAuthority
+import org.springframework.security.core.userdetails.UserDetails
+import java.sql.Date
 import java.sql.Timestamp
 import javax.persistence.*
 import javax.validation.constraints.Email
@@ -12,35 +16,43 @@ import javax.validation.constraints.Size
 data class User(
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY) var id: Long? = null,
 
-    var rank: UserRank = UserRank.CUSTOMER,
+    @Column(name = "fullname")
+    @JsonAlias("fullname")
+    var fullName: String? = null,
 
-    var picture: String? = null,
 
-    @Email
+    @Column(name = "mail")
     var mail: String? = null,
 
-    @Size(min = 12, max = 200)
     @NotNull
-    var password: String? = null,
+    @Column(name = "country")
+    var country: String? = null,
 
+    @NotNull
+    @Column(name = "rank")
+    var rank: UserRank = UserRank.CUSTOMER,
+
+    @NotNull
+    @Column(name = "token")
     var token: String? = null,
 
+    @NotNull
+    @Column(name = "ip")
     var ip: String? = null,
 
-    @Size(min = 2)
-    @Column(name = "firstname")
-    var firstName: String? = null,
-
-    @Size(min = 2)
-    @Column(name = "lastname")
-    var lastName: String? = null,
-
-    @Column(name = "verified_at")
-    var verifiedAt: Timestamp? = null,
+    @Column(name = "phone_number")
+    @JsonAlias("phone_number")
+    var phoneNumber: String? = null,
 
     @Column(name = "created_at")
-    var createdAt: Timestamp? = null,
+    @JsonAlias("created_at")
+    var createdAt: Date? = null,
+
+    @Column(name = "updated_at")
+    @JsonAlias("updated_at")
+    var updatedAt: Date? = null,
 
     @Column(name = "deleted_at")
-    var deletedAt: Timestamp? = null,
+    @JsonAlias("deleted_at")
+    var deletedAt: Date? = null,
 )

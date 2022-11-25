@@ -29,6 +29,7 @@ dependencies {
     // MySQL connector Java
     implementation("mysql:mysql-connector-java:8.0.30")
 
+    implementation("com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.10")
 
 
     // Spring boot starter data JPA
@@ -44,11 +45,23 @@ dependencies {
 
     implementation("commons-validator:commons-validator:1.7")
 
+    // Retrofit
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+
     // JWT
     implementation("io.jsonwebtoken:jjwt:0.9.1")
 
     // Security
     implementation("org.springframework.security:spring-security-core:5.7.3")
+
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+
+    // RxJava
+    implementation("io.reactivex.rxjava3:rxjava:3.1.5")
+
+    implementation("com.squareup.okhttp:okhttp:2.7.5")
+
+    implementation("com.github.akarnokd:rxjava3-retrofit-adapter:3.0.0")
 
     // Spring boot starter web
     implementation("org.springframework.boot:spring-boot-starter-web")
@@ -61,7 +74,7 @@ dependencies {
     testImplementation("org.springframework.boot:spring-boot-starter-test")
 
     // Firebase
-    runtimeOnly("com.google.firebase:firebase-admin:9.0.0")
+    implementation("com.google.firebase:firebase-admin:9.1.1")
 }
 
 tasks.withType<KotlinCompile> {

@@ -1,0 +1,2 @@
+# use the correct IP if it is not for local development
+bind-address = 0.0.0.0

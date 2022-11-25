@@ -1,23 +1,23 @@
 package com.magicpark.api.controllers
 
-import com.magicpark.api.model.database.Product
-import com.magicpark.api.services.ProductService
+import com.magicpark.api.model.database.ShopItem
+import com.magicpark.api.services.ShopService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("api/v1/support")
-class SupportController @Autowired constructor(val service: ProductService) {
+class SupportController @Autowired constructor(val service: ShopService) {
 
     @GetMapping("")
-    fun getAllProducts() = service.getAllProducts()
+    fun getAllShopItems() = service.getAllShopItems()
 
     @GetMapping("/{id}")
-    fun getProduct(@PathVariable id: Long) = service.getProductById(id)
+    fun getShopItem(@PathVariable id: Long) = service.getShopItemById(id)
 
     @PutMapping("/{id}")
-    fun updateProduct(
-        @PathVariable id: Long, @RequestBody product: Product
-    ) = service.updateProduct(id, product)
+    fun updateShopItem(
+        @PathVariable id: Long, @RequestBody ShopItem: ShopItem
+    ) = service.updateShopItem(id, ShopItem)
 }
 
